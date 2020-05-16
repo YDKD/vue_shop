@@ -41,7 +41,7 @@ export default {
       // 这是表单登录数据绑定
       loginForm: {
         username: 'admin',
-        password: '123456'
+        password: ''
       },
       // 这是表单登录验证规则
       loginFormRules: {
@@ -67,7 +67,7 @@ export default {
       this.$refs.loginFormRef.validate(async valid => {
         if (!valid) return
         const { data: res } = await this.$http.post('login', this.loginForm)
-        if (res.meta.status !== 200) return this.$message.error('登录失败！')
+        if (res.meta.status !== 200) return this.$message.error('用户名或密码错误！')
         this.$message.success('登录成功!')
         // 1、登录成功之后，需要在浏览器中的seeionStorage中保存成功之后返回的token值。
         // 目的：因为只有登录成功之后才能访问后续的 API ，token值是一个登录成功的信号
