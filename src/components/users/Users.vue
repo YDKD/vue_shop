@@ -76,7 +76,12 @@
               placement="top"
               :enterable="false"
             >
-              <el-button type="danger" icon="el-icon-delete" size="mini"></el-button>
+              <el-button
+                type="danger"
+                icon="el-icon-delete"
+                size="mini"
+                @click="removeUserById(scope.row.id)"
+              ></el-button>
             </el-tooltip>
             <!-- 分配角色 -->
             <el-tooltip
@@ -243,6 +248,7 @@ export default {
     this.getUserList()
   },
   methods: {
+    // 获取用户信息
     async getUserList() {
       const { data: res } = await this.$http.get('users', {
         params: this.queryInfo
@@ -298,6 +304,7 @@ export default {
     // 添加用户
     addUser() {
       this.$refs.addForm.validate(async valiad => {
+        // 表单提交前的预验证
         if (!valiad) {
           this.$message.error('用户信息有误，请重新输入')
           this.addDialogVisible = false
@@ -333,7 +340,6 @@ export default {
       }
       this.editForm = res.data
       this.editDialogVisible = true
-      console.log(res)
     },
 
     // 监听修改用户提示关闭事件
@@ -341,6 +347,7 @@ export default {
       this.$refs.editFormRef.resetFields()
     },
 
+    // 更新用户信息
     editUser() {
       //  提交之前的预判断
       this.$refs.editFormRef.validate(async valiad => {
@@ -359,19 +366,57 @@ export default {
         if (res.meta.status !== 200) {
           this.$notify.error({
             title: '失败',
-            message: '更新用户信息失败'
+            message: '更新用户信息失败',
+            duration: 2000
           })
         }
         // 修改成功,进行提示
         this.$notify.success({
           title: '成功',
-          message: '修改用户信息成功'
+          message: '修改用户信息成功',
+          duration: 2000
         })
         // 关闭提示框
         this.editDialogVisible = false
         // 重新获取用户数据
         this.getUserList()
       })
+    },
+
+    // 删除用户信息
+    async removeUserById(id) {
+      // 根据提示信息，来判断用户是否执行删除用户
+      const comfirmResult = await this.$confirm(
+        '此操作将永久删除该用户, 是否继续?',
+        '提示',
+        {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }
+      ).catch(err => err)
+
+      if (comfirmResult !== 'confirm') {
+        // 用户取消了删除,进行提示
+        return this.$message.info('已取消了删除操作')
+      }
+      const { data: res } = await this.$http.delete(`users/${id}`)
+      if (res.meta.status !== 200) {
+        // 删除失败提示
+        return this.$notify.error({
+          title: '失败',
+          message: '删除用户失败',
+          duration: 2000
+        })
+      }
+      // 删除成功提示
+      this.$notify.success({
+        title: '成功',
+        message: '删除用户成功',
+        duration: 2000
+      })
+      // 重新加载用户列表
+      this.getUserList()
     }
   }
 }

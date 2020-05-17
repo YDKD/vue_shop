@@ -24,7 +24,8 @@ import {
     Tooltip,
     Pagination,
     Notification,
-    Dialog
+    Dialog,
+    MessageBox
 } from 'element-ui'
 
 Vue.use(Button)
@@ -53,3 +54,4 @@ Vue.use(Dialog)
 // 将message全局挂载到vue中，这样在每个组件中就能通过 this.$message 去使用
 Vue.prototype.$message = Message
 Vue.prototype.$notify = Notification
+Vue.prototype.$confirm = MessageBox.confirm
