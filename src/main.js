@@ -8,8 +8,14 @@ import './assets/css/global.css'
 // 导入 字体图片文件样式
 import './assets/font/iconfont.css'
 
+// 导入 Tree 表格
+import TreeTable from 'vue-table-with-tree-grid'
+
 // 配置axios
 import axios from 'axios'
+
+// 注册table插件
+Vue.component('tree-table', TreeTable)
 
 Vue.config.productionTip = false
 axios.defaults.baseURL = 'http://127.0.0.1:8888/api/private/v1/'

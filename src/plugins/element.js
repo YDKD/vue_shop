@@ -29,7 +29,8 @@ import {
     Tag,
     Tree,
     Select,
-    Option
+    Option,
+    Cascader
 } from 'element-ui'
 
 Vue.use(Button)
@@ -59,6 +60,7 @@ Vue.use(Tag)
 Vue.use(Tree)
 Vue.use(Select)
 Vue.use(Option)
+Vue.use(Cascader)
 // 将message全局挂载到vue中，这样在每个组件中就能通过 this.$message 去使用
 Vue.prototype.$message = Message
 Vue.prototype.$notify = Notification
