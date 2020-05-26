@@ -101,7 +101,6 @@
             :props="cascaderProps"
             @change="cascaderCateChanged"
             clearable
-            change-on-select
           ></el-cascader>
         </el-form-item>
       </el-form>
@@ -187,9 +186,9 @@ export default {
           { required: true, message: '请输入分类名称', trigger: 'blur' },
           {
             required: true,
-            min: 4,
-            max: 6,
-            message: '分类名称长度为4~6位',
+            min: 3,
+            max: 8,
+            message: '分类名称长度为3~8位',
             trigger: 'blur'
           }
         ]
@@ -198,12 +197,16 @@ export default {
       parentCateList: [],
       // 级联选择器配置对象
       cascaderProps: {
+        multiple: true,
+        checkStrictly: true,
         expandTrigger: 'hover',
         label: 'cat_name',
         value: 'cat_id',
         children: 'children'
       },
       // 保存选中项的ID
+      // 因为我们使用了多选模式，而这个多选模式，会把选中的ID值放到一个数组中去，
+      // 所以我们的数组中又存放了一个数组
       cateKeys: [],
       // 根据ID保存修改分类的信息
       editCateForm: {},
@@ -216,8 +219,8 @@ export default {
           {
             required: true,
             min: 3,
-            max: 6,
-            message: '分类名称长度在3~6位',
+            max: 8,
+            message: '分类名称长度在3~8位',
             trigger: 'blur'
           }
         ]
@@ -278,10 +281,11 @@ export default {
     // 级联选择器选中发生改变时触发函数
     cascaderCateChanged() {
       // 通过保存keys的数组的长度，来确定我们添加的分类的层级
+      // 先判断我们定义的数组中是否存在 ID数组
       if (this.cateKeys.length > 0) {
         // 父级分类的ID
-        this.addCateForm.cat_pid = this.cateKeys[this.cateKeys.length - 1]
-        return (this.addCateForm.cat_level = this.cateKeys.length)
+        this.addCateForm.cat_pid = this.cateKeys[0][this.cateKeys[0].length - 1]
+        this.addCateForm.cat_level = this.cateKeys[0].length
       } else {
         this.addCateForm.cat_pid = 0
         this.addCateForm.cat_level = 0
@@ -293,7 +297,7 @@ export default {
       // 重置表单
       this.$refs.addCateRef.resetFields()
       // 重置cateKeys数组
-      this.cateKeys = []
+      this.cateKeys[0] = []
       // 重置添加分类数据对象的值
       this.addCateForm.cat_level = 0
       this.addCateForm.cat_pid = 0
