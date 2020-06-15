@@ -294,15 +294,16 @@ export default {
     // 点击按钮添加商品
     addStore() {
       this.$refs.addFormRef.validate(async valid => {
-        if (!valid) {
-          return this.$message.error('请填写必要表单')
-        }
+        if (!valid) return this.$message.error('请填写必要的表单项！')
+        // 发送请求前：需对提交的表单进行处理goods_cat attrs
+        // this.addForm.goods_cat = this.addForm.goods_cat.join(',')
+        // 以上写法不对：级联选择器绑定的对象goods_cat要求是数组对象
+        // 解决办法: 包：lodash 方法（深拷贝）：cloneDeep(boj)
 
-        // 执行业务逻辑
-        // 因为级联选择器必须双向绑定的goods_cat 是一个数组，而提交的表单信息
-        // 的goods_cat 是一个字符串，所以我们可以对 addForm 做一下深拷贝
+        // 将this.addForm进行深拷贝
         const form = _.cloneDeep(this.addForm)
         form.goods_cat = form.goods_cat.join(',')
+
         // 处理动态参数
         this.manyTableData.forEach(item => {
           const newInfo = {
@@ -319,24 +320,15 @@ export default {
           }
           this.addForm.attrs.push(newInfo)
         })
-
         form.attrs = this.addForm.attrs
-        
-        // 发起请求
+        // 发起请求添加商品
+        // 商品名称必须是唯一的
         const { data: res } = await this.$http.post('goods', form)
-        if (res.meta.status !== 201) {  
-          return this.$notify.error({
-            title: '失败',
-            message: '添加商品失败',
-            duration: 2000
-          })
+        if (res.meta.status !== 201) {
+          return this.$message.error('添加商品失败！')
         }
 
-        this.$notify.success({
-          title: '成功',
-          message: '添加商品成功',
-          duration: 2000
-        })
+        this.$message.success('添加商品成功!')
         this.$router.push('/goods')
       })
     }
