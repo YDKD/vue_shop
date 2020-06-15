@@ -10,6 +10,7 @@ import Cate from './components/goods/Cate.vue'
 import Params from './components/goods/Params.vue'
 import List from './components/goods/List.vue'
 import Add from './components/goods/Add.vue'
+import Order from './components/order/Order.vue'
 Vue.use(VueRouter)
 
 const router = new VueRouter({
@@ -28,7 +29,8 @@ const router = new VueRouter({
                 { path: '/categories', component: Cate },
                 { path: '/params', component: Params },
                 { path: '/goods', component: List },
-                { path: '/goods/add', component: Add }
+                { path: '/goods/add', component: Add },
+                { path: '/orders', component: Order }
             ]
         }
     ]
@@ -37,7 +39,7 @@ const router = new VueRouter({
 // 避免路由重复点击
 const originalPush = VueRouter.prototype.push
 VueRouter.prototype.push = function push(location) {
-  return originalPush.call(this, location).catch(err => err)
+    return originalPush.call(this, location).catch(err => err)
 }
 // 在暴露 router之前，需要挂载路由导航守卫
 router.beforeEach((to, from, next) => {

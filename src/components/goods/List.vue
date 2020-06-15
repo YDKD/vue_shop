@@ -286,7 +286,7 @@ export default {
           attrs: this.editGoodsForm.attrs
         }
       )
-      console.log(res)
+      this.editGoodsForm = res.data
     }
   }
 }
