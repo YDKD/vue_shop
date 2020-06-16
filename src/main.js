@@ -22,6 +22,13 @@ import 'quill/dist/quill.bubble.css' // for bubble theme
 // 配置axios
 import axios from 'axios'
 
+// 导入百度地图
+import BaiduMap from 'vue-baidu-map'
+
+Vue.use(BaiduMap, {
+    ak: 'BdyaLR50D1ydGtzQ0Weis2g8piGxGk61'
+})
+
 // 注册table插件
 Vue.component('tree-table', TreeTable)
 

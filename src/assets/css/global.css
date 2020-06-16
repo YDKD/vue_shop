@@ -40,3 +40,15 @@ body,
 .ql-editor {
     min-height: 300px;
 }
+
+.BMap_CityListCtrl {
+    position: absolute;
+    z-index: 10;
+    text-size-adjust: none;
+    bottom: auto;
+    right: auto;
+    top: 9px !important;
+    left: 800px !important;
+    width: auto;
+    height: auto;
+}
