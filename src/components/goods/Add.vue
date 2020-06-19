@@ -196,7 +196,7 @@ export default {
       // 静态属性数据列表
       onlyTableData: [],
       // 上传图片的地址
-      uploadURL: 'http://127.0.0.1:8888/api/private/v1/upload',
+      uploadURL: 'http://timemeetyou.com:8889/api/private/v1/upload',
       // 图片上传的headers请求头对象
       headerObj: {
         Authorization: window.sessionStorage.getItem('token')

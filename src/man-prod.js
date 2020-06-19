@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router.js'
-import './plugins/element.js'
 // 导入全局样式表
 import './assets/css/global.css'
 
@@ -14,11 +13,8 @@ import TreeTable from 'vue-table-with-tree-grid'
 // 导入富文本编辑器
 import VueQuillEditor from 'vue-quill-editor'
 
-// 导入富文本编辑器的样式
-import 'quill/dist/quill.core.css' // import styles
-import 'quill/dist/quill.snow.css' // for snow theme
-import 'quill/dist/quill.bubble.css' // for bubble theme
-
+// 导入 NProgress 的 js 和 css
+import NProgress from 'nprogress'
 // 配置axios
 import axios from 'axios'
 
@@ -36,15 +32,22 @@ Vue.component('tree-table', TreeTable)
 Vue.use(VueQuillEditor)
 
 Vue.config.productionTip = false
-axios.defaults.baseURL = 'http://127.0.0.1:8888/api/private/v1/'
+axios.defaults.baseURL = 'http://timemeetyou.com:8889/api/private/v1/'
 
+// request 在请求发送到后台之前
 // 配置请求拦截器,目的：其他权限请求时，需要先判断
 axios.interceptors.request.use(config => {
+    NProgress.start()
     config.headers.Authorization = window.sessionStorage.getItem('token')
     // 在最后必须返回 config
     return config
 })
 
+// response 拦截器,数据返回之后，页面加载之前
+axios.interceptors.response.use(config => {
+    NProgress.done()
+    return config
+})
 // 配置全局的时间过滤器
 Vue.filter('dateFormat', function (origin) {
     const dt = new Date(origin)

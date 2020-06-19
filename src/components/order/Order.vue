@@ -26,48 +26,22 @@
 
       <!-- 表格信息部分 -->
       <el-table :data="orderList" border stripe>
-        <el-table-column
-          type="index"
-          label="序号"
-          width="60px"
-          align="center"
-        ></el-table-column>
-        <el-table-column
-          prop="order_number"
-          label="订单编号"
-          align="center"
-        ></el-table-column>
-        <el-table-column
-          prop="order_price"
-          label="订单价格"
-          align="center"
-        ></el-table-column>
+        <el-table-column type="index" label="序号" width="60px" align="center"></el-table-column>
+        <el-table-column prop="order_number" label="订单编号" align="center"></el-table-column>
+        <el-table-column prop="order_price" label="订单价格" align="center"></el-table-column>
         <el-table-column prop="order_pay" label="是否付款" align="center">
           <template slot-scope="scope">
-            <el-tag v-if="scope.row.order_pay === '1'" type="success"
-              >已付款</el-tag
-            >
+            <el-tag v-if="scope.row.order_pay === '1'" type="success">已付款</el-tag>
             <el-tag v-else type="danger">已付款</el-tag>
           </template>
         </el-table-column>
-        <el-table-column
-          prop="is_send"
-          label="是否发货"
-          align="center"
-        ></el-table-column>
+        <el-table-column prop="is_send" label="是否发货" align="center"></el-table-column>
         <el-table-column prop="create_time" label="下单时间" align="center">
-          <template slot-scope="scope">{{
-            scope.row.create_time | dateFormat
-          }}</template>
+          <template slot-scope="scope">{{ scope.row.create_time | dateFormat }}</template>
         </el-table-column>
         <el-table-column label="操作" align="center">
           <template>
-            <el-button
-              size="mini"
-              type="primary"
-              icon="el-icon-edit"
-              @click="checkBox"
-            ></el-button>
+            <el-button size="mini" type="primary" icon="el-icon-edit" @click="checkBox"></el-button>
             <el-button
               size="mini"
               type="success"
@@ -84,7 +58,7 @@
         @current-change="handleCurrentChange"
         :current-page="queryInfo.pagenum"
         :page-sizes="[1, 5, 10, 20]"
-        :page-size="queryInfo.pagesize"
+        :page-size="queryInfo.pagesize" 
         layout="total, sizes, prev, pager, next, jumper"
         :total="total"
       ></el-pagination>
@@ -104,10 +78,7 @@
         label-width="100px"
       >
         <el-form-item label="省市区/县" prop="address1">
-          <el-cascader
-            :options="cityData"
-            v-model="addressForm.address1"
-          ></el-cascader>
+          <el-cascader :options="cityData" v-model="addressForm.address1"></el-cascader>
         </el-form-item>
         <el-form-item label="详细地址" prop="address2">
           <el-input v-model="addressForm.address2"></el-input>
@@ -115,18 +86,12 @@
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button @click="editAddressDialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="editAddressDialogVisible = false"
-          >确 定</el-button
-        >
+        <el-button type="primary" @click="editAddressDialogVisible = false">确 定</el-button>
       </span>
     </el-dialog>
 
     <!-- 物流信息对话框 -->
-    <el-dialog
-      title="物流信息"
-      :visible.sync="progressDialogVisible"
-      width="50%"
-    >
+    <el-dialog title="物流信息" :visible.sync="progressDialogVisible" width="50%">
       <!-- 时间线 -->
       <el-timeline :reverse="reverse">
         <el-timeline-item
@@ -163,12 +128,8 @@ export default {
         address2: ''
       },
       addressFormRules: {
-        address1: [
-          { required: true, message: '请选择省市区/县', trigger: 'blur' }
-        ],
-        address2: [
-          { required: true, message: '请输入详细地址', trigger: 'blur' }
-        ]
+        address1: [{ required: true, message: '请选择省市区/县', trigger: 'blur' }],
+        address2: [{ required: true, message: '请输入详细地址', trigger: 'blur' }]
       },
       cityData,
       // 物流信息对话框
