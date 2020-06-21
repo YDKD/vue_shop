@@ -32,7 +32,7 @@ Vue.component('tree-table', TreeTable)
 Vue.use(VueQuillEditor)
 
 Vue.config.productionTip = false
-axios.defaults.baseURL = 'http://timemeetyou.com:8889/api/private/v1/'
+axios.defaults.baseURL = 'http://weichang0606.com:8889/api/private/v1/'
 
 // request 在请求发送到后台之前
 // 配置请求拦截器,目的：其他权限请求时，需要先判断

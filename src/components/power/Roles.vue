@@ -32,7 +32,7 @@
             <el-row
               :class="['bdbottom', i1 === 0 ? 'bdtop' : '', 'vcenter']"
               v-for="(item1, i1) in scope.row.children"
-              :key="item1.id"
+              :key="i1"
             >
               <!-- 一级权限渲染 -->
               <el-col :span="5">
@@ -43,7 +43,7 @@
               <el-col :span="19">
                 <el-row
                   v-for="(item2, i2) in item1.children"
-                  :key="item2.id"
+                  :key="i2"
                   :class="[i2 === 0 ? '' : 'bdtop', 'vcenter']"
                 >
                   <!-- 二级权限渲染 -->
@@ -233,6 +233,7 @@ export default {
       }
       // 保存数据
       this.rolesList = res.data
+      console.log(this.rolesList)
     },
 
     // 添加角色

@@ -1,5 +1,9 @@
 <template>
   <div class="login_container">
+    <!-- 标题区域 -->
+    <div class="login_tittle">
+      电商后台管理系统
+    </div>
     <div class="login_box">
       <!-- 头像区域 -->
       <div class="avatar_box">
@@ -82,14 +86,23 @@ export default {
 
 <style lang="less" scoped>
 .login_container {
-  background-color: #2b4b6b;
+  background: url(../assets/bg.jpg) 0 0 no-repeat;
   height: 100%;
 }
+.login_tittle {
+  position: absolute;
+  left: 50%;
+  top: 10%;
+  font-size: 32px;
+  color: antiquewhite;
+  font-style: italic;
+  transform: translate(-50%, -10%);
+}
 .login_box {
-  width: 450px;
-  height: 300px;
-  background-color: #fff;
-  border-radius: 3px;
+  min-width: 450px;
+  min-height: 300px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
   position: absolute;
   left: 50%;
   top: 50%;

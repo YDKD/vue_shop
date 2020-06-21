@@ -55,10 +55,10 @@ const router = new VueRouter({
 })
 
 // 避免路由重复点击
-const originalPush = VueRouter.prototype.push
-VueRouter.prototype.push = function push(location) {
-    return originalPush.call(this, location).catch(err => err)
-}
+// const originalPush = VueRouter.prototype.push
+// VueRouter.prototype.push = function push(location) {
+//     return originalPush.call(this, location).catch(err => err)
+// }
 // 在暴露 router之前，需要挂载路由导航守卫
 router.beforeEach((to, from, next) => {
     // to 将要访问的路径
