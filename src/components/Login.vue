@@ -7,7 +7,7 @@
     <div class="login_box">
       <!-- 头像区域 -->
       <div class="avatar_box">
-        <img src="../assets/logo.png" alt />
+        <img src="https://cdn.jsdelivr.net/gh/YDKD/Blogger/images%E5%A4%B4%E5%83%8F.jpg" alt />
       </div>
       <!-- 表单区域 -->
       <el-form
